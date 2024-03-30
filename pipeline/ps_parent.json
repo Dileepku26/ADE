@@ -60,10 +60,6 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_child",
-									"type": "PipelineReference"
-								},
 								"waitOnCompletion": true,
 								"parameters": {
 									"parentfolder": {
