@@ -12,7 +12,11 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink2sales"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectsales"
@@ -39,7 +43,11 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectsales",
 				"selectsales aggregate(groupBy(product),",
-				"     revenue = sum(revenue)) ~> aggregate1"
+				"     revenue = sum(revenue)) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2sales"
 			]
 		}
 	}
