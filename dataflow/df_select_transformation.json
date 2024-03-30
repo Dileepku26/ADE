@@ -15,7 +15,14 @@
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          id as short,",
+				"          date as date,",
+				"          product as string,",
+				"          quantity as short,",
+				"          revenue as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> srcsales"
 			]
