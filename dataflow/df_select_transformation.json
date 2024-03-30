@@ -6,10 +6,10 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "ds_dileepadls_input_folderinside",
+						"referenceName": "ds_dataflow_adls_input",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "srcsales"
 				}
 			],
 			"sinks": [],
@@ -17,7 +17,7 @@
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1"
+				"     ignoreNoFilesFound: false) ~> srcsales"
 			]
 		}
 	}
