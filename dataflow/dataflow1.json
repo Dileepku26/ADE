@@ -39,7 +39,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectsales",
 				"selectsales aggregate(groupBy(product),",
-				"     revenue = ERROR_FUNCTION('')) ~> aggregate1"
+				"     revenue = sum(revenue)) ~> aggregate1"
 			]
 		}
 	}
