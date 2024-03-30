@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "selectsales"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -34,7 +37,9 @@
 				"          revenue",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectsales"
+				"     skipDuplicateMapOutputs: true) ~> selectsales",
+				"selectsales aggregate(groupBy(product),",
+				"     revenue = ERROR_FUNCTION('')) ~> aggregate1"
 			]
 		}
 	}
