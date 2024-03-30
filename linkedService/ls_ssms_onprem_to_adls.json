@@ -1,0 +1,12 @@
+{
+	"name": "ls_ssms_onprem_to_adls",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://dileepadls.dfs.core.windows.net/",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDMwNDREQ0I5LTQzNjgtNDk4MS1CMzY1LTg5RUZCMkMwQkU3RF82NjkxZWYzMi00OTlkLTQwNTQtODdkYy1lMGJmMWQyZGFmY2YiDQp9"
+		}
+	}
+}
