@@ -47,7 +47,7 @@
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'delimited',",
-				"     fileSystem: 'datafiles',",
+				"     fileSystem: 'dataflow',",
 				"     folderPath: 'output/salesselect',",
 				"     columnDelimiter: ',',",
 				"     escapeChar: '\\\\',",
