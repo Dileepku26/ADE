@@ -15,11 +15,17 @@
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          customerid as integer,",
+				"          customername as string,",
+				"          location as string,",
+				"          sales as decimal(19,4)",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: true,",
 				"     format: 'query',",
 				"     store: 'sqlserver',",
-				"     query: '',",
+				"     query: 'select customerid,customername, location, sales from customer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> sourcesrc"
 			]
 		}
