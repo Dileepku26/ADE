@@ -10,6 +10,13 @@
 						"type": "LinkedServiceReference"
 					},
 					"name": "sourcesrc"
+				},
+				{
+					"linkedService": {
+						"referenceName": "ls_azuresqlserver_target",
+						"type": "LinkedServiceReference"
+					},
+					"name": "target"
 				}
 			],
 			"sinks": [],
@@ -26,7 +33,13 @@
 				"     format: 'query',",
 				"     store: 'sqlserver',",
 				"     query: 'select customerid,customername, location, sales from customer',",
-				"     isolationLevel: 'READ_UNCOMMITTED') ~> sourcesrc"
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> sourcesrc",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'query',",
+				"     store: 'sqlserver',",
+				"     query: 'select customerid,customername, location, sales from customer',",
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> target"
 			]
 		}
 	}
