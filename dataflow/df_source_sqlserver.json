@@ -9,7 +9,7 @@
 						"referenceName": "ls_azure_sql_server",
 						"type": "LinkedServiceReference"
 					},
-					"name": "source1"
+					"name": "sourcesrc"
 				}
 			],
 			"sinks": [],
@@ -20,7 +20,7 @@
 				"     format: 'query',",
 				"     store: 'sqlserver',",
 				"     query: '',",
-				"     isolationLevel: 'READ_UNCOMMITTED') ~> source1"
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> sourcesrc"
 			]
 		}
 	}
