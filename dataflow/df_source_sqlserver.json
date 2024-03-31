@@ -118,7 +118,7 @@
 				"lookup1 filter(not(isNull(Trg_customerid))) ~> filter1",
 				"filter1 derive(changedrecords = iif(Src_customername!=Trg_customername ||Src_location!=Trg_location||Src_sales!=Trg_sales, 'yes', 'no'),",
 				"          Flag = 'Updated') ~> ischangerecords",
-				"ischangerecords filter(ERROR_FUNCTION('')) ~> filter2",
+				"ischangerecords filter(changedrecords=='yes') ~> filter2",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
