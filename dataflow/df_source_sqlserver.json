@@ -5,6 +5,10 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"linkedService": {
+						"referenceName": "ls_azure_sql_server",
+						"type": "LinkedServiceReference"
+					},
 					"name": "source1"
 				}
 			],
@@ -12,7 +16,11 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1"
+				"     validateSchema: false,",
+				"     format: 'query',",
+				"     store: 'sqlserver',",
+				"     query: 'select customerid,\\n     customername,\\n     location,\\n     sales\\n     from customer;',",
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> source1"
 			]
 		}
 	}
