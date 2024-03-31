@@ -102,7 +102,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"srcselect lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"srcselect, trgselect lookup(Src_customerid == Trg_customerid,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
