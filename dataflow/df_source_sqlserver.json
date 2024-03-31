@@ -134,7 +134,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select2 alterRow() ~> alterRow1",
+				"select2 alterRow(updateIf(1==1)) ~> alterRow1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
