@@ -19,8 +19,28 @@
 					"name": "target"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "ls_azuresqlserver_target",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
+				{
+					"name": "srcselect"
+				},
+				{
+					"name": "trgselect"
+				},
+				{
+					"name": "Doesnotexists"
+				},
+				{
+					"name": "derivedColumn1"
+				},
 				{
 					"name": "select1"
 				}
@@ -51,13 +71,47 @@
 				"     query: 'select customerid,customername, location, sales from customer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> target",
 				"sourcesrc select(mapColumn(",
-				"          customerid,",
-				"          customername,",
-				"          location,",
-				"          sales",
+				"          Src_customerid = customerid,",
+				"          Src_customername = customername,",
+				"          Src_location = location,",
+				"          Src_sales = sales",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> srcselect",
+				"target select(mapColumn(",
+				"          Trg_customerid = customerid,",
+				"          Trg_customername = customername,",
+				"          Trg_location = location,",
+				"          Trg_sales = sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> trgselect",
+				"srcselect, trgselect exists(Src_customerid == Trg_customerid,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> Doesnotexists",
+				"Doesnotexists derive(Flag = 'Inserted') ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          customerid = Src_customerid,",
+				"          customername = Src_customername,",
+				"          location = Src_location,",
+				"          sales = Src_sales,",
+				"          Flag",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'customer',",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}
