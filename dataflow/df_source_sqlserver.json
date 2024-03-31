@@ -49,6 +49,9 @@
 				},
 				{
 					"name": "filter1"
+				},
+				{
+					"name": "ischangerecords"
 				}
 			],
 			"scriptLines": [
@@ -110,6 +113,7 @@
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
 				"lookup1 filter(not(isNull(Trg_customerid))) ~> filter1",
+				"filter1 derive(changedrecords = ERROR_FUNCTION('')) ~> ischangerecords",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
