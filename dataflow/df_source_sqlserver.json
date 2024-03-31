@@ -109,7 +109,7 @@
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
-				"lookup1 filter(ERROR_FUNCTION('')) ~> filter1",
+				"lookup1 filter(not(isNull(Trg_customerid))) ~> filter1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
