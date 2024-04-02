@@ -55,6 +55,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "select3"
 				}
 			],
 			"scriptLines": [
@@ -116,15 +119,25 @@
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"split1@existedrecords filter(iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  true(), false())) ~> filter1",
 				"filter1 select(mapColumn(",
-				"          CustomerID = Src_CustomerID,",
-				"          CustomerName = Src_CustomerName,",
-				"          Location = Src_Location,",
-				"          Sales = Src_Sales",
+				"          {} = Src_CustomerID",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
 				"select1, select2 union(byName: true)~> union1",
 				"union1 derive(StartDate = currentUTC()) ~> derivedColumn1",
+				"filter1 select(mapColumn(",
+				"          Src_CustomerID,",
+				"          Src_CustomerName,",
+				"          Src_Location,",
+				"          Src_Sales,",
+				"          CustomerKey,",
+				"          Trg_CustomerID,",
+				"          Trg_CustomerName,",
+				"          Trg_Location,",
+				"          Trg_Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select3",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
