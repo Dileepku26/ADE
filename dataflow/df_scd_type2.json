@@ -97,7 +97,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"split1@existedrecords filter(ERROR_FUNCTION('')) ~> filter1"
+				"split1@existedrecords filter(iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  'yes', 'no')) ~> filter1"
 			]
 		}
 	}
