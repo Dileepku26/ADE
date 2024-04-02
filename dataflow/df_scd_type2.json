@@ -132,12 +132,19 @@
 				"     schemaName: 'dbo',",
 				"     tableName: 'customer',",
 				"     insertable: true,",
-				"     updateable: true,",
+				"     updateable: false,",
 				"     deletable: false,",
 				"     upsertable: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID,",
+				"          CustomerName,",
+				"          Location,",
+				"          Sales,",
+				"          StartDate",
+				"     )) ~> sink1"
 			]
 		}
 	}
