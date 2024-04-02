@@ -38,6 +38,9 @@
 				},
 				{
 					"name": "filter1"
+				},
+				{
+					"name": "select2"
 				}
 			],
 			"scriptLines": [
@@ -97,7 +100,15 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"split1@existedrecords filter(iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  'yes', 'no')) ~> filter1"
+				"split1@existedrecords filter(iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  true(), false())) ~> filter1",
+				"filter1 select(mapColumn(",
+				"          CustomerID = Src_CustomerID,",
+				"          CustomerName = Src_CustomerName,",
+				"          Location = Src_Location,",
+				"          Sales = Src_Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2"
 			]
 		}
 	}
