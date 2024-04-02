@@ -65,7 +65,7 @@
 				},
 				{
 					"name": "select4",
-					"description": "Renaming filter1 to select3 with columns 'CustomerKey'"
+					"description": "Renaming filter1 to select4 with columns 'Src_CustomerID, Src_CustomerName, Src_Location, Src_Sales, CustomerKey, Trg_CustomerID, Trg_CustomerName, Trg_Location, Trg_Sales'"
 				},
 				{
 					"name": "derivedColumn4",
