@@ -48,9 +48,6 @@
 					"name": "filter1"
 				},
 				{
-					"name": "select2"
-				},
-				{
 					"name": "union1"
 				},
 				{
@@ -118,12 +115,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"split1@existedrecords filter(iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  true(), false())) ~> filter1",
-				"filter1 select(mapColumn(",
-				"          {} = Src_CustomerID",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select1, select2 union(byName: true)~> union1",
+				"select1, filter1 union(byName: true)~> union1",
 				"union1 derive(StartDate = currentUTC()) ~> derivedColumn1",
 				"filter1 select(mapColumn(",
 				"          Src_CustomerID,",
