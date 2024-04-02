@@ -60,7 +60,7 @@
 					"name": "select4"
 				},
 				{
-					"name": "derivedColumn2"
+					"name": "derivedColumn3"
 				}
 			],
 			"scriptLines": [
@@ -141,7 +141,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select4",
-				"select4 derive(EndDate = currentUTC()) ~> derivedColumn2",
+				"select3 derive(EndDate = currentUTC()) ~> derivedColumn3",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
