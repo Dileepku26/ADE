@@ -39,15 +39,13 @@
 				"          CustomerID as integer,",
 				"          CustomerName as string,",
 				"          Location as string,",
-				"          Sales as decimal(19,4),",
-				"          StartDate as timestamp,",
-				"          EndDate as timestamp",
+				"          Sales as decimal(19,4)",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'query',",
 				"     store: 'sqlserver',",
-				"     query: 'select   CustomerKey, CustomerID, CustomerName, Location,  Sales, StartDate, EndDate  from customer',",
+				"     query: 'select   CustomerKey, CustomerID, CustomerName, Location,  Sales  from customer where EndDate is Null',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> target"
 			]
 		}
