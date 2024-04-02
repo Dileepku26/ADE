@@ -17,10 +17,9 @@
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table',",
+				"     format: 'query',",
 				"     store: 'sqlserver',",
-				"     schemaName: '',",
-				"     tableName: '',",
+				"     query: 'customer, CustomerName, Location, Sales from csutomer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> source"
 			]
 		}
