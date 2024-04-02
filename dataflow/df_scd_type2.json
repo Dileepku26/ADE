@@ -25,7 +25,7 @@
 					"name": "srcselect"
 				},
 				{
-					"name": "select1"
+					"name": "trgselect"
 				}
 			],
 			"scriptLines": [
@@ -64,13 +64,13 @@
 				"     skipDuplicateMapOutputs: true) ~> srcselect",
 				"target select(mapColumn(",
 				"          CustomerKey,",
-				"          CustomerID,",
-				"          CustomerName,",
-				"          Location,",
-				"          Sales",
+				"          Trg_CustomerID = CustomerID,",
+				"          Trg_CustomerName = CustomerName,",
+				"          Trg_Location = Location,",
+				"          Trg_Sales = Sales",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> trgselect"
 			]
 		}
 	}
