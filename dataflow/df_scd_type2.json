@@ -81,8 +81,8 @@
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
-				"lookup1 split(ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(Newreco, )"
+				"lookup1 split(isNull(Trg_CustomerID),",
+				"     disjoint: false) ~> split1@(Newrecords, updatedrecords)"
 			]
 		}
 	}
