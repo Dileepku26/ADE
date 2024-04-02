@@ -54,8 +54,8 @@
 				"source select(mapColumn(",
 				"          Src_CustomerID = CustomerID,",
 				"          Src_CustomerName = CustomerName,",
-				"          Location,",
-				"          Sales",
+				"          Src_Location = Location,",
+				"          Src_Sales = Sales",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> srcselect"
