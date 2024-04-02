@@ -179,13 +179,17 @@
 				"     store: 'sqlserver',",
 				"     schemaName: 'dbo',",
 				"     tableName: 'customer',",
-				"     insertable: true,",
-				"     updateable: false,",
+				"     insertable: false,",
+				"     updateable: true,",
 				"     deletable: false,",
 				"     upsertable: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink2"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerKey,",
+				"          EndDate",
+				"     )) ~> sink2"
 			]
 		}
 	}
