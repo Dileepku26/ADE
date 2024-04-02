@@ -26,6 +26,9 @@
 				},
 				{
 					"name": "trgselect"
+				},
+				{
+					"name": "lookup1"
 				}
 			],
 			"scriptLines": [
@@ -70,7 +73,11 @@
 				"          Trg_Sales = Sales",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> trgselect"
+				"     skipDuplicateMapOutputs: true) ~> trgselect",
+				"srcselect, target lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1"
 			]
 		}
 	}
