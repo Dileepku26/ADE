@@ -116,7 +116,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
 				"select1, select2 union(byName: true)~> union1",
-				"union1 derive() ~> derivedColumn1"
+				"union1 derive(StartDate = currentUTC()) ~> derivedColumn1"
 			]
 		}
 	}
