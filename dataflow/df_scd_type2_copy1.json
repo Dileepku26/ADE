@@ -29,13 +29,6 @@
 				},
 				{
 					"linkedService": {
-						"referenceName": "ls_azure_sql_server",
-						"type": "LinkedServiceReference"
-					},
-					"name": "sink2"
-				},
-				{
-					"linkedService": {
 						"referenceName": "ls_azuresqlserver_target",
 						"type": "LinkedServiceReference"
 					},
@@ -73,12 +66,6 @@
 				{
 					"name": "select4",
 					"description": "Renaming filter1 to select3 with columns 'CustomerKey'"
-				},
-				{
-					"name": "derivedColumn3"
-				},
-				{
-					"name": "alterRow1"
 				},
 				{
 					"name": "derivedColumn4",
@@ -158,8 +145,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select4",
-				"select3 derive(EndDate = currentUTC()) ~> derivedColumn3",
-				"derivedColumn3 alterRow(updateIf(1==1)) ~> alterRow1",
 				"select4 derive(EndDate = currentUTC()) ~> derivedColumn4",
 				"derivedColumn4 alterRow(updateIf(1==1)) ~> alterRow2",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
@@ -182,24 +167,6 @@
 				"          Sales,",
 				"          StartDate",
 				"     )) ~> sink1",
-				"alterRow1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'table',",
-				"     store: 'sqlserver',",
-				"     schemaName: 'dbo',",
-				"     tableName: 'customer',",
-				"     insertable: false,",
-				"     updateable: true,",
-				"     deletable: false,",
-				"     upsertable: false,",
-				"     keys:['CustomerKey'],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
-				"          CustomerKey,",
-				"          EndDate",
-				"     )) ~> sink2",
 				"alterRow2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
