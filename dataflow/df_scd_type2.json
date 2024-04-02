@@ -34,11 +34,20 @@
 				"     store: 'sqlserver',",
 				"     query: 'select CustomerID , CustomerName, Location, Sales from customer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> source",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          CustomerKey as integer,",
+				"          CustomerID as integer,",
+				"          CustomerName as string,",
+				"          Location as string,",
+				"          Sales as decimal(19,4),",
+				"          StartDate as timestamp,",
+				"          EndDate as timestamp",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'query',",
 				"     store: 'sqlserver',",
-				"     query: 'select   CustomerID, CustomerName, Location,  Sales, StartDate, EndDate  from customer',",
+				"     query: 'select   CustomerKey, CustomerID, CustomerName, Location,  Sales, StartDate, EndDate  from customer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> target"
 			]
 		}
