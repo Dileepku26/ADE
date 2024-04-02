@@ -141,7 +141,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select4",
-				"select4 derive({} = ERROR_FUNCTION('')) ~> derivedColumn2",
+				"select4 derive(EndDate = currentUTC()) ~> derivedColumn2",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
