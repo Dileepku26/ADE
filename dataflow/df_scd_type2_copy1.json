@@ -33,6 +33,9 @@
 						"type": "LinkedServiceReference"
 					},
 					"name": "sink2"
+				},
+				{
+					"name": "sink3"
 				}
 			],
 			"transformations": [
@@ -76,6 +79,9 @@
 				{
 					"name": "derivedColumn4",
 					"description": "Creating/updating the columns 'CustomerKey, EndDate'"
+				},
+				{
+					"name": "alterRow2"
 				}
 			],
 			"scriptLines": [
@@ -151,6 +157,7 @@
 				"select3 derive(EndDate = currentUTC()) ~> derivedColumn3",
 				"derivedColumn3 alterRow(updateIf(1==1)) ~> alterRow1",
 				"select4 derive(EndDate = currentUTC()) ~> derivedColumn4",
+				"derivedColumn4 alterRow(updateIf(1==1)) ~> alterRow2",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
@@ -188,7 +195,11 @@
 				"     mapColumn(",
 				"          CustomerKey,",
 				"          EndDate",
-				"     )) ~> sink2"
+				"     )) ~> sink2",
+				"alterRow2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink3"
 			]
 		}
 	}
