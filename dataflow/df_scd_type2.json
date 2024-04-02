@@ -23,6 +23,9 @@
 			"transformations": [
 				{
 					"name": "srcselect"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -58,7 +61,16 @@
 				"          Src_Sales = Sales",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> srcselect"
+				"     skipDuplicateMapOutputs: true) ~> srcselect",
+				"target select(mapColumn(",
+				"          CustomerKey,",
+				"          CustomerID,",
+				"          CustomerName,",
+				"          Location,",
+				"          Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1"
 			]
 		}
 	}
