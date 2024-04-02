@@ -1,0 +1,197 @@
+{
+	"name": "df_scd_type2_copy1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "ls_azure_sql_server",
+						"type": "LinkedServiceReference"
+					},
+					"name": "source"
+				},
+				{
+					"linkedService": {
+						"referenceName": "ls_azuresqlserver_target",
+						"type": "LinkedServiceReference"
+					},
+					"name": "target"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "ls_azuresqlserver_target",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"linkedService": {
+						"referenceName": "ls_azure_sql_server",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "srcselect"
+				},
+				{
+					"name": "trgselect"
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "split1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "union1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select3"
+				},
+				{
+					"name": "select4"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustomerID as integer,",
+				"          CustomerName as string,",
+				"          Location as string,",
+				"          Sales as decimal(19,4)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'query',",
+				"     store: 'sqlserver',",
+				"     query: 'select CustomerID , CustomerName, Location, Sales from customer',",
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> source",
+				"source(output(",
+				"          CustomerKey as integer,",
+				"          CustomerID as integer,",
+				"          CustomerName as string,",
+				"          Location as string,",
+				"          Sales as decimal(19,4)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'query',",
+				"     store: 'sqlserver',",
+				"     query: 'select   CustomerKey, CustomerID, CustomerName, Location,  Sales  from customer where EndDate is Null',",
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> target",
+				"source select(mapColumn(",
+				"          Src_CustomerID = CustomerID,",
+				"          Src_CustomerName = CustomerName,",
+				"          Src_Location = Location,",
+				"          Src_Sales = Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> srcselect",
+				"target select(mapColumn(",
+				"          CustomerKey,",
+				"          Trg_CustomerID = CustomerID,",
+				"          Trg_CustomerName = CustomerName,",
+				"          Trg_Location = Location,",
+				"          Trg_Sales = Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> trgselect",
+				"srcselect, trgselect lookup(Src_CustomerID == Trg_CustomerID,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 split(isNull(Trg_CustomerID),",
+				"     disjoint: false) ~> split1@(Newrecords, existedrecords)",
+				"split1@Newrecords select(mapColumn(",
+				"          CustomerID = Src_CustomerID,",
+				"          CustomerName = Src_CustomerName,",
+				"          Location = Src_Location,",
+				"          Sales = Src_Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"split1@existedrecords filter(iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  true(), false())) ~> filter1",
+				"select1, filter1 union(byName: true)~> union1",
+				"union1 derive(StartDate = currentUTC()) ~> derivedColumn1",
+				"filter1 select(mapColumn(",
+				"          CustomerKey",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select3",
+				"filter1 select(mapColumn(",
+				"          Src_CustomerID,",
+				"          Src_CustomerName,",
+				"          Src_Location,",
+				"          Src_Sales,",
+				"          CustomerKey,",
+				"          Trg_CustomerID,",
+				"          Trg_CustomerName,",
+				"          Trg_Location,",
+				"          Trg_Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select4",
+				"select3 derive(EndDate = currentUTC()) ~> derivedColumn3",
+				"derivedColumn3 alterRow(updateIf(1==1)) ~> alterRow1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'customer',",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID,",
+				"          CustomerName,",
+				"          Location,",
+				"          Sales,",
+				"          StartDate",
+				"     )) ~> sink1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'customer',",
+				"     insertable: false,",
+				"     updateable: true,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     keys:['CustomerKey'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerKey,",
+				"          EndDate",
+				"     )) ~> sink2"
+			]
+		}
+	}
+}
