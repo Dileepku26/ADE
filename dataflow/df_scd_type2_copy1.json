@@ -35,6 +35,10 @@
 					"name": "sink2"
 				},
 				{
+					"linkedService": {
+						"referenceName": "ls_azuresqlserver_target",
+						"type": "LinkedServiceReference"
+					},
 					"name": "sink3"
 				}
 			],
@@ -198,8 +202,18 @@
 				"     )) ~> sink2",
 				"alterRow2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'customer',",
+				"     insertable: false,",
+				"     updateable: true,",
+				"     deletable: false,",
+				"     upsertable: false,",
+				"     keys:['CustomerKey'],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink3"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink3"
 			]
 		}
 	}
