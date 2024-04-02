@@ -36,10 +36,9 @@
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> source",
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table',",
+				"     format: 'query',",
 				"     store: 'sqlserver',",
-				"     schemaName: '',",
-				"     tableName: '',",
+				"     query: 'select  CustomerKey, CustomerID, CustomerName, Location,  Sales, StartDate, EndDate  from customer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> target"
 			]
 		}
