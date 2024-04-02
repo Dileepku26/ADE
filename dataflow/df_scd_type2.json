@@ -13,7 +13,7 @@
 				},
 				{
 					"linkedService": {
-						"referenceName": "ls_azure_sql_server",
+						"referenceName": "ls_azuresqlserver_target",
 						"type": "LinkedServiceReference"
 					},
 					"name": "target"
