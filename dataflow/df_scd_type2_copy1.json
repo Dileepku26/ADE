@@ -157,7 +157,7 @@
 				"     skipDuplicateMapOutputs: true) ~> select4",
 				"select3 derive(EndDate = currentUTC()) ~> derivedColumn3",
 				"derivedColumn3 alterRow(updateIf(1==1)) ~> alterRow1",
-				"select4 derive(EndDate = ERROR_FUNCTION('')) ~> derivedColumn4",
+				"select4 derive(EndDate = currentUTC()) ~> derivedColumn4",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
