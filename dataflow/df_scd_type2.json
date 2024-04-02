@@ -41,6 +41,9 @@
 				},
 				{
 					"name": "select2"
+				},
+				{
+					"name": "union1"
 				}
 			],
 			"scriptLines": [
@@ -108,7 +111,8 @@
 				"          Sales = Src_Sales",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2"
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select1, select2 union(byName: true)~> union1"
 			]
 		}
 	}
