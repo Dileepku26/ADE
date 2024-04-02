@@ -19,7 +19,7 @@
 				"     validateSchema: false,",
 				"     format: 'query',",
 				"     store: 'sqlserver',",
-				"     query: 'customer, CustomerName, Location, Sales from csutomer',",
+				"     query: '',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> source"
 			]
 		}
