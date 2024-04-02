@@ -74,7 +74,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> trgselect",
-				"srcselect, target lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"srcselect, trgselect lookup(Src_CustomerID == Trg_CustomerID,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1"
