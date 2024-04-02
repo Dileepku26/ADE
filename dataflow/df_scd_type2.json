@@ -12,6 +12,10 @@
 					"name": "source"
 				},
 				{
+					"linkedService": {
+						"referenceName": "ls_azure_sql_server",
+						"type": "LinkedServiceReference"
+					},
 					"name": "target"
 				}
 			],
@@ -31,7 +35,12 @@
 				"     query: 'select CustomerID , CustomerName, Location, Sales from customer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> source",
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> target"
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: '',",
+				"     tableName: '',",
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> target"
 			]
 		}
 	}
