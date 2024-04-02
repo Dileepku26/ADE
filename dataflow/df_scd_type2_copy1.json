@@ -64,7 +64,8 @@
 					"name": "select3"
 				},
 				{
-					"name": "select4"
+					"name": "select4",
+					"description": "Renaming filter1 to select3 with columns 'CustomerKey'"
 				},
 				{
 					"name": "derivedColumn3"
