@@ -37,9 +37,6 @@
 					"name": "select1"
 				},
 				{
-					"name": "derivedColumn1"
-				},
-				{
 					"name": "filter1"
 				}
 			],
@@ -100,8 +97,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"split1@existedrecords derive(ismodified = iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  'yes', 'no')) ~> derivedColumn1",
-				"derivedColumn1 filter(ismodified=='yes') ~> filter1"
+				"split1@existedrecords filter(ERROR_FUNCTION('')) ~> filter1"
 			]
 		}
 	}
