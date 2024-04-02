@@ -32,6 +32,12 @@
 				},
 				{
 					"name": "split1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -82,7 +88,16 @@
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
 				"lookup1 split(isNull(Trg_CustomerID),",
-				"     disjoint: false) ~> split1@(Newrecords, existedrecords)"
+				"     disjoint: false) ~> split1@(Newrecords, existedrecords)",
+				"split1@Newrecords select(mapColumn(",
+				"          CustomerID = Src_CustomerID,",
+				"          CustomerName = Src_CustomerName,",
+				"          Location = Src_Location,",
+				"          Sales = Src_Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"split1@existedrecords derive(ismodified = iif(Src_CustomerName!=Trg_CustomerName||Src_Location!=Trg_Location||Src_Sales!=Trg_Sales,  'yes', 'no')) ~> derivedColumn1"
 			]
 		}
 	}
