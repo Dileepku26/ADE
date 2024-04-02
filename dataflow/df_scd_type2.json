@@ -20,7 +20,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "srcselect"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          CustomerID as integer,",
@@ -46,7 +50,15 @@
 				"     format: 'query',",
 				"     store: 'sqlserver',",
 				"     query: 'select   CustomerKey, CustomerID, CustomerName, Location,  Sales  from customer where EndDate is Null',",
-				"     isolationLevel: 'READ_UNCOMMITTED') ~> target"
+				"     isolationLevel: 'READ_UNCOMMITTED') ~> target",
+				"source select(mapColumn(",
+				"          Src_CustomerID = CustomerID,",
+				"          Src_CustomerName = CustomerName,",
+				"          Location,",
+				"          Sales",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> srcselect"
 			]
 		}
 	}
