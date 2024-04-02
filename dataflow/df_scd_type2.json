@@ -38,7 +38,7 @@
 				"     validateSchema: false,",
 				"     format: 'query',",
 				"     store: 'sqlserver',",
-				"     query: 'select  CustomerKey, CustomerID, CustomerName, Location,  Sales, StartDate, EndDate  from customer',",
+				"     query: 'select   CustomerID, CustomerName, Location,  Sales, StartDate, EndDate  from customer',",
 				"     isolationLevel: 'READ_UNCOMMITTED') ~> target"
 			]
 		}
