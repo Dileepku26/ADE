@@ -29,6 +29,9 @@
 				},
 				{
 					"name": "lookup1"
+				},
+				{
+					"name": "split1"
 				}
 			],
 			"scriptLines": [
@@ -77,7 +80,9 @@
 				"srcselect, trgselect lookup(Src_CustomerID == Trg_CustomerID,",
 				"     multiple: false,",
 				"     pickup: 'any',",
-				"     broadcast: 'auto')~> lookup1"
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 split(ERROR_FUNCTION(''),",
+				"     disjoint: false) ~> split1@(Newreco, )"
 			]
 		}
 	}
